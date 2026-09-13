@@ -1,0 +1,2438 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#070b12">
+
+    <title>🥶 Freezer-MD Control Center</title>
+
+
+    <style>
+
+        /* =====================================================
+           FREEZER-MD PREMIUM CONTROL CENTER
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        :root {
+
+            --bg: #05080d;
+            --panel: #0b111a;
+            --panel-2: #0f1722;
+            --border: #1b2a3c;
+
+            --text: #f8fafc;
+            --muted: #8190a5;
+
+            --ice: #7dd3fc;
+            --ice-2: #38bdf8;
+
+            --green: #4ade80;
+            --yellow: #facc15;
+            --red: #f87171;
+
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 80% -10%,
+                    rgba(56, 189, 248, 0.12),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 0% 40%,
+                    rgba(125, 211, 252, 0.05),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--text);
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 245px;
+            height: 100vh;
+
+            background:
+                rgba(8, 13, 21, 0.96);
+
+            border-right: 1px solid var(--border);
+
+            padding: 25px 15px;
+
+            z-index: 100;
+
+            backdrop-filter: blur(18px);
+
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 5px 10px 28px;
+
+            border-bottom: 1px solid var(--border);
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .logo-icon {
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #102b3e,
+                    #071018
+                );
+
+            border: 1px solid #25455c;
+
+            border-radius: 12px;
+
+            font-size: 23px;
+
+            box-shadow:
+                0 0 25px
+                rgba(56, 189, 248, 0.12);
+
+        }
+
+
+        .logo-text strong {
+
+            display: block;
+
+            font-size: 17px;
+
+            letter-spacing: .3px;
+
+        }
+
+
+        .logo-text span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+
+        }
+
+
+        .nav-title {
+
+            color: #506075;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+
+            padding: 0 12px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .nav-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin-bottom: 5px;
+
+            border-radius: 9px;
+
+            color: #93a2b6;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            transition: .2s;
+
+        }
+
+
+        .nav-item:hover,
+        .nav-item.active {
+
+            color: white;
+
+            background:
+                rgba(56, 189, 248, .08);
+
+        }
+
+
+        .nav-item.active {
+
+            border: 1px solid
+                rgba(56, 189, 248, .12);
+
+        }
+
+
+        .nav-icon {
+
+            width: 20px;
+
+            text-align: center;
+
+            font-size: 16px;
+
+        }
+
+
+        .sidebar-bottom {
+
+            position: absolute;
+
+            bottom: 20px;
+
+            left: 15px;
+            right: 15px;
+
+        }
+
+
+        .user-mini {
+
+            padding: 13px;
+
+            border-radius: 11px;
+
+            background: var(--panel);
+
+            border: 1px solid var(--border);
+
+        }
+
+
+        .user-mini-top {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .avatar {
+
+            width: 35px;
+            height: 35px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #122638;
+
+            border: 1px solid #284b64;
+
+        }
+
+
+        .user-mini strong {
+
+            display: block;
+
+            font-size: 12px;
+
+        }
+
+
+        .user-mini span {
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+
+            margin-left: 245px;
+
+            min-height: 100vh;
+
+            padding: 25px 30px 45px;
+
+            max-width: 1500px;
+
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .page-title h1 {
+
+            font-size: 25px;
+
+            letter-spacing: -.5px;
+
+        }
+
+
+        .page-title p {
+
+            margin-top: 5px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+        }
+
+
+        .top-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .live-badge {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 8px 12px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(74, 222, 128, .06);
+
+            border: 1px solid
+                rgba(74, 222, 128, .15);
+
+            color: #86efac;
+
+            font-size: 11px;
+
+        }
+
+
+        .live-dot {
+
+            width: 7px;
+            height: 7px;
+
+            background: var(--green);
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 10px var(--green);
+
+            animation: pulse 1.6s infinite;
+
+        }
+
+
+        @keyframes pulse {
+
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .35;
+            }
+
+        }
+
+
+        .logout {
+
+            text-decoration: none;
+
+            color: #c5d0dd;
+
+            border: 1px solid var(--border);
+
+            background: var(--panel);
+
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
+            font-size: 11px;
+
+        }
+
+
+        .logout:hover {
+
+            border-color: #35506a;
+
+            color: white;
+
+        }
+
+
+        /* =====================================================
+           BOT HERO
+        ===================================================== */
+
+        .hero {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(15, 31, 45, .95),
+                    rgba(8, 14, 22, .95)
+                );
+
+            border: 1px solid #1d3549;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            right: -90px;
+            top: -130px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(56, 189, 248, .08);
+
+            filter: blur(5px);
+
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+        }
+
+
+        .hero-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+        }
+
+
+        .bot-avatar {
+
+            width: 70px;
+            height: 70px;
+
+            border-radius: 18px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 38px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #132d40,
+                    #08131d
+                );
+
+            border: 1px solid #31556d;
+
+            box-shadow:
+                0 0 30px
+                rgba(56, 189, 248, .10);
+
+        }
+
+
+        .hero h2 {
+
+            font-size: 21px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .hero p {
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+        }
+
+
+        .bot-status {
+
+            margin-top: 10px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #86efac;
+
+            font-size: 11px;
+
+        }
+
+
+        .status-dot {
+
+            width: 7px;
+            height: 7px;
+
+            background: var(--green);
+
+            border-radius: 50%;
+
+        }
+
+
+        .hero-button {
+
+            border: 1px solid #28485f;
+
+            background: rgba(56, 189, 248, .07);
+
+            color: #bae6fd;
+
+            padding: 11px 17px;
+
+            border-radius: 9px;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =====================================================
+           STATS
+        ===================================================== */
+
+        .section-heading {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin: 25px 0 12px;
+
+        }
+
+
+        .section-heading h2 {
+
+            font-size: 14px;
+
+        }
+
+
+        .section-heading span {
+
+            color: #526174;
+
+            font-size: 10px;
+
+        }
+
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 13px;
+
+        }
+
+
+        .card {
+
+            background:
+                rgba(11, 17, 26, .90);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            padding: 17px;
+
+            transition:
+                transform .2s,
+                border-color .2s;
+
+        }
+
+
+        .card:hover {
+
+            transform: translateY(-2px);
+
+            border-color: #2a4055;
+
+        }
+
+
+        .card-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .card-label {
+
+            color: #8392a6;
+
+            font-size: 11px;
+
+        }
+
+
+        .card-icon {
+
+            width: 29px;
+            height: 29px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: #101c28;
+
+            font-size: 14px;
+
+        }
+
+
+        .card-value {
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            margin-top: 13px;
+
+            letter-spacing: -.5px;
+
+        }
+
+
+        .card-sub {
+
+            color: #536176;
+
+            font-size: 10px;
+
+            margin-top: 4px;
+
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .progress {
+
+            height: 5px;
+
+            background: #182331;
+
+            border-radius: 20px;
+
+            margin-top: 13px;
+
+            overflow: hidden;
+
+        }
+
+
+        .progress-bar {
+
+            height: 100%;
+
+            width: 0%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--ice-2),
+                    var(--ice)
+                );
+
+            transition:
+                width .6s ease;
+
+        }
+
+
+        .progress-bar.green {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #16a34a,
+                    #4ade80
+                );
+
+        }
+
+
+        .progress-bar.yellow {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ca8a04,
+                    #facc15
+                );
+
+        }
+
+
+        .progress-bar.red {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #dc2626,
+                    #f87171
+                );
+
+        }
+
+
+        /* =====================================================
+           LOWER GRID
+        ===================================================== */
+
+        .lower-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.4fr 1fr;
+
+            gap: 13px;
+
+            margin-top: 13px;
+
+        }
+
+
+        .panel {
+
+            background:
+                rgba(11, 17, 26, .90);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            padding: 18px;
+
+        }
+
+
+        .panel-title {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .panel-title h3 {
+
+            font-size: 13px;
+
+        }
+
+
+        .panel-title span {
+
+            color: #56657a;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           SYSTEM ROWS
+        ===================================================== */
+
+        .system-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid #15202c;
+
+        }
+
+
+        .system-row:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+        .system-name {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #9aa8ba;
+
+            font-size: 11px;
+
+        }
+
+
+        .system-value {
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =====================================================
+           QUICK ACTIONS
+        ===================================================== */
+
+        .actions {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 9px;
+
+        }
+
+
+        .action {
+
+            border: 1px solid var(--border);
+
+            background: #0d151f;
+
+            color: #a7b3c3;
+
+            border-radius: 10px;
+
+            padding: 15px 10px;
+
+            cursor: pointer;
+
+            text-align: left;
+
+            transition: .2s;
+
+        }
+
+
+        .action:hover {
+
+            background: #121e2b;
+
+            border-color: #30485e;
+
+            color: white;
+
+        }
+
+
+        .action-icon {
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .action strong {
+
+            display: block;
+
+            font-size: 11px;
+
+            color: white;
+
+        }
+
+
+        .action small {
+
+            display: block;
+
+            margin-top: 4px;
+
+            color: #536176;
+
+            font-size: 9px;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            text-align: center;
+
+            color: #3f4c5e;
+
+            font-size: 10px;
+
+            padding: 35px 0 0;
+
+        }
+
+
+        /* =====================================================
+           MOBILE MENU
+        ===================================================== */
+
+        .mobile-header {
+
+            display: none;
+
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 1050px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .lower-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+
+                display: none;
+
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                padding:
+                    15px
+                    14px
+                    35px;
+
+            }
+
+
+            .mobile-header {
+
+                display: flex;
+
+                justify-content: space-between;
+
+                align-items: center;
+
+                margin-bottom: 22px;
+
+            }
+
+
+            .mobile-brand {
+
+                display: flex;
+
+                align-items: center;
+
+                gap: 9px;
+
+                font-weight: 700;
+
+                font-size: 16px;
+
+            }
+
+
+            .mobile-brand-icon {
+
+                width: 35px;
+                height: 35px;
+
+                display: flex;
+
+                align-items: center;
+                justify-content: center;
+
+                border-radius: 9px;
+
+                background: #102333;
+
+                border: 1px solid #28465c;
+
+            }
+
+
+            .topbar {
+
+                margin-bottom: 20px;
+
+            }
+
+
+            .page-title h1 {
+
+                font-size: 21px;
+
+            }
+
+
+            .top-actions {
+
+                display: none;
+
+            }
+
+
+            .hero {
+
+                padding: 18px;
+
+            }
+
+
+            .hero-content {
+
+                align-items: flex-start;
+
+            }
+
+
+            .hero-left {
+
+                gap: 12px;
+
+            }
+
+
+            .bot-avatar {
+
+                width: 55px;
+                height: 55px;
+
+                font-size: 28px;
+
+                border-radius: 14px;
+
+            }
+
+
+            .hero h2 {
+
+                font-size: 17px;
+
+            }
+
+
+            .hero-button {
+
+                display: none;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 9px;
+
+            }
+
+
+            .card {
+
+                padding: 14px;
+
+            }
+
+
+            .card-value {
+
+                font-size: 21px;
+
+            }
+
+
+            .lower-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL PHONES
+        ===================================================== */
+
+        @media (max-width: 390px) {
+
+            .stats {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     DESKTOP SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🥶
+        </div>
+
+        <div class="logo-text">
+
+            <strong>Freezer-MD</strong>
+
+            <span>Control Center</span>
+
+        </div>
+
+    </div>
+
+
+    <div class="nav-title">
+        Main
+    </div>
+
+
+    <a
+        href="#dashboard"
+        class="nav-item active">
+
+        <span class="nav-icon">📊</span>
+
+        Dashboard
+
+    </a>
+
+
+    <a
+        href="#system"
+        class="nav-item">
+
+        <span class="nav-icon">🖥️</span>
+
+        System
+
+    </a>
+
+
+    <a
+        href="#controls"
+        class="nav-item">
+
+        <span class="nav-icon">⚡</span>
+
+        Bot Controls
+
+    </a>
+
+
+    <div class="nav-title"
+         style="margin-top:25px;">
+
+        Management
+
+    </div>
+
+
+    <a
+        href="#logs"
+        class="nav-item">
+
+        <span class="nav-icon">📜</span>
+
+        Logs
+
+    </a>
+
+
+    <a
+        href="#settings"
+        class="nav-item">
+
+        <span class="nav-icon">⚙️</span>
+
+        Settings
+
+    </a>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="user-mini">
+
+            <div class="user-mini-top">
+
+                <div class="avatar">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong>
+                        {{ username }}
+                    </strong>
+
+                    <span>
+                        {{ role }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- MOBILE HEADER -->
+
+    <div class="mobile-header">
+
+        <div class="mobile-brand">
+
+            <div class="mobile-brand-icon">
+                🥶
+            </div>
+
+            Freezer-MD
+
+        </div>
+
+
+        <a
+            href="/logout"
+            class="logout">
+
+            Logout
+
+        </a>
+
+    </div>
+
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div class="page-title">
+
+            <h1>
+                Control Center
+            </h1>
+
+            <p>
+                Monitor and manage your Freezer-MD environment.
+            </p>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <div class="live-badge">
+
+                <span class="live-dot"></span>
+
+                LIVE
+
+            </div>
+
+
+            <a
+                href="/logout"
+                class="logout">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         BOT HERO
+    ================================================= -->
+
+    <section
+        class="hero"
+        id="dashboard">
+
+        <div class="hero-content">
+
+
+            <div class="hero-left">
+
+                <div class="bot-avatar">
+                    ❄️
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Freezer-MD
+                    </h2>
+
+                    <p>
+                        WhatsApp Automation System
+                    </p>
+
+
+                    <div class="bot-status">
+
+                        <span class="status-dot"></span>
+
+                        System Online
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="hero-button"
+                onclick="updateStats()">
+
+                ↻ Refresh
+
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SYSTEM OVERVIEW
+    ================================================= -->
+
+    <div class="section-heading">
+
+        <h2>
+            System Overview
+        </h2>
+
+        <span>
+            LIVE MONITORING
+        </span>
+
+    </div>
+
+
+    <section class="stats">
+
+
+        <!-- BATTERY -->
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <span class="card-label">
+                    Battery
+                </span>
+
+                <div class="card-icon">
+                    🔋
+                </div>
+
+            </div>
+
+
+            <div
+                class="card-value"
+                id="battery">
+
+                {{ battery }}
+
+            </div>
+
+
+            <div
+                class="card-sub"
+                id="battery-status">
+
+                {{ battery_status }}
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar green"
+                    id="battery-bar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MEMORY -->
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <span class="card-label">
+                    Memory
+                </span>
+
+                <div class="card-icon">
+                    🧠
+                </div>
+
+            </div>
+
+
+            <div
+                class="card-value"
+                id="memory-used">
+
+                {{ mem_used }}
+
+            </div>
+
+
+            <div class="card-sub">
+
+                Available:
+                <span id="memory-available">
+                    {{ mem_available }}
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    id="memory-bar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STORAGE -->
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <span class="card-label">
+                    Storage
+                </span>
+
+                <div class="card-icon">
+                    💾
+                </div>
+
+            </div>
+
+
+            <div
+                class="card-value"
+                id="storage-percent">
+
+                {{ storage_percent }}
+
+            </div>
+
+
+            <div class="card-sub">
+
+                Used:
+                <span id="storage-used">
+                    {{ storage_used }}
+                </span>
+
+                · Free:
+                <span id="storage-available">
+                    {{ storage_available }}
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    id="storage-bar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TEMPERATURE -->
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <span class="card-label">
+                    Temperature
+                </span>
+
+                <div class="card-icon">
+                    🌡️
+                </div>
+
+            </div>
+
+
+            <div
+                class="card-value"
+                id="temperature">
+
+                {{ temperature }}
+
+            </div>
+
+
+            <div class="card-sub">
+                Device temperature
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =================================================
+         SYSTEM + ACTIONS
+    ================================================= -->
+
+    <div class="lower-grid">
+
+
+        <!-- SYSTEM -->
+
+        <section
+            class="panel"
+            id="system">
+
+
+            <div class="panel-title">
+
+                <h3>
+                    🖥️ System Information
+                </h3>
+
+                <span>
+                    LIVE
+                </span>
+
+            </div>
+
+
+            <div class="system-row">
+
+                <div class="system-name">
+                    ⏱️ Device Uptime
+                </div>
+
+                <div
+                    class="system-value"
+                    id="uptime">
+
+                    {{ uptime }}
+
+                </div>
+
+            </div>
+
+
+            <div class="system-row">
+
+                <div class="system-name">
+                    🔋 Battery Status
+                </div>
+
+                <div
+                    class="system-value"
+                    id="system-battery-status">
+
+                    {{ battery_status }}
+
+                </div>
+
+            </div>
+
+
+            <div class="system-row">
+
+                <div class="system-name">
+                    🌡️ Temperature
+                </div>
+
+                <div
+                    class="system-value"
+                    id="system-temperature">
+
+                    {{ temperature }}
+
+                </div>
+
+            </div>
+
+
+            <div class="system-row">
+
+                <div class="system-name">
+                    👥 Dashboard Users
+                </div>
+
+                <div class="system-value">
+
+                    {{ users }}
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <section
+            class="panel"
+            id="controls">
+
+
+            <div class="panel-title">
+
+                <h3>
+                    ⚡ Quick Actions
+                </h3>
+
+                <span>
+                    CONTROL
+                </span>
+
+            </div>
+
+
+            <div class="actions">
+
+
+                <button
+                    class="action"
+                    onclick="showComingSoon('Bot Restart')">
+
+                    <div class="action-icon">
+                        🔄
+                    </div>
+
+                    <strong>
+                        Restart Bot
+                    </strong>
+
+                    <small>
+                        Coming soon
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="action"
+                    onclick="showComingSoon('Bot Logs')">
+
+                    <div class="action-icon">
+                        📜
+                    </div>
+
+                    <strong>
+                        View Logs
+                    </strong>
+
+                    <small>
+                        Coming soon
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="action"
+                    onclick="showComingSoon('Bot Settings')">
+
+                    <div class="action-icon">
+                        ⚙️
+                    </div>
+
+                    <strong>
+                        Bot Settings
+                    </strong>
+
+                    <small>
+                        Coming soon
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="action"
+                    onclick="updateStats()">
+
+                    <div class="action-icon">
+                        📊
+                    </div>
+
+                    <strong>
+                        Refresh Stats
+                    </strong>
+
+                    <small>
+                        Update now
+                    </small>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <!-- =================================================
+         LOGS PLACEHOLDER
+    ================================================= -->
+
+    <section
+        class="panel"
+        id="logs"
+        style="margin-top:13px;">
+
+        <div class="panel-title">
+
+            <h3>
+                📜 Activity
+            </h3>
+
+            <span>
+                SYSTEM
+            </span>
+
+        </div>
+
+
+        <div class="system-row">
+
+            <div class="system-name">
+                🟢 Dashboard
+            </div>
+
+            <div class="system-value">
+                Online
+            </div>
+
+        </div>
+
+
+        <div class="system-row">
+
+            <div class="system-name">
+                ⚡ Live monitoring
+            </div>
+
+            <div class="system-value">
+                Active
+            </div>
+
+        </div>
+
+
+        <div class="system-row">
+
+            <div class="system-name">
+                🤖 Bot controls
+            </div>
+
+            <div class="system-value">
+                Pending integration
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SETTINGS PLACEHOLDER -->
+
+    <section
+        class="panel"
+        id="settings"
+        style="margin-top:13px;">
+
+        <div class="panel-title">
+
+            <h3>
+                ⚙️ Dashboard Settings
+            </h3>
+
+            <span>
+                CONFIG
+            </span>
+
+        </div>
+
+
+        <div class="system-row">
+
+            <div class="system-name">
+                🔄 Statistics interval
+            </div>
+
+            <div class="system-value">
+                2 seconds
+            </div>
+
+        </div>
+
+
+        <div class="system-row">
+
+            <div class="system-name">
+                🌙 Theme
+            </div>
+
+            <div class="system-value">
+                Dark
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        🥶 Freezer-MD Control Center
+        <br><br>
+
+        Protected by Freezer ·
+        Live monitoring enabled
+
+    </footer>
+
+
+</main>
+
+
+<!-- =====================================================
+     LIVE JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   HELPER
+===================================================== */
+
+function setText(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+
+        element.textContent =
+            value ?? "--";
+
+    }
+
+}
+
+
+/* =====================================================
+   PERCENTAGE HELPER
+===================================================== */
+
+function extractPercent(value) {
+
+    if (!value) {
+        return 0;
+    }
+
+    const number =
+        parseInt(
+            String(value).replace("%", ""),
+            10
+        );
+
+    if (isNaN(number)) {
+        return 0;
+    }
+
+    return Math.max(
+        0,
+        Math.min(100, number)
+    );
+
+}
+
+
+/* =====================================================
+   BAR STATUS
+===================================================== */
+
+function updateBar(id, percentage) {
+
+    const bar =
+        document.getElementById(id);
+
+    if (!bar) {
+        return;
+    }
+
+
+    bar.style.width =
+        percentage + "%";
+
+
+    bar.classList.remove(
+        "green",
+        "yellow",
+        "red"
+    );
+
+
+    if (percentage >= 70) {
+
+        bar.classList.add("green");
+
+    }
+    else if (percentage >= 40) {
+
+        bar.classList.add("yellow");
+
+    }
+    else {
+
+        bar.classList.add("red");
+
+    }
+
+}
+
+
+/* =====================================================
+   LIVE STATS
+===================================================== */
+
+async function updateStats() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/stats",
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            console.log(
+                "Stats request failed:",
+                response.status
+            );
+
+            return;
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        /* ================================
+           BATTERY
+        ================================= */
+
+        setText(
+            "battery",
+            data.battery
+        );
+
+
+        setText(
+            "battery-status",
+            data.battery_status
+        );
+
+
+        setText(
+            "system-battery-status",
+            data.battery_status
+        );
+
+
+        const batteryPercent =
+            extractPercent(
+                data.battery
+            );
+
+
+        updateBar(
+            "battery-bar",
+            batteryPercent
+        );
+
+
+        /* ================================
+           TEMPERATURE
+        ================================= */
+
+        setText(
+            "temperature",
+            data.temperature
+        );
+
+
+        setText(
+            "system-temperature",
+            data.temperature
+        );
+
+
+        /* ================================
+           MEMORY
+        ================================= */
+
+        if (data.memory) {
+
+            setText(
+                "memory-used",
+                data.memory.used
+            );
+
+
+            setText(
+                "memory-available",
+                data.memory.available
+            );
+
+
+            /*
+             * Calculate RAM percentage
+             */
+
+            const total =
+                parseFloat(
+                    data.memory.total
+                );
+
+
+            const used =
+                parseFloat(
+                    data.memory.used
+                );
+
+
+            if (
+                !isNaN(total) &&
+                !isNaN(used) &&
+                total > 0
+            ) {
+
+                const memoryPercent =
+                    Math.round(
+                        (used / total) * 100
+                    );
+
+
+                updateBar(
+                    "memory-bar",
+                    memoryPercent
+                );
+
+            }
+
+        }
+
+
+        /* ================================
+           STORAGE
+        ================================= */
+
+        if (data.storage) {
+
+            setText(
+                "storage-percent",
+                data.storage.percent
+            );
+
+
+            setText(
+                "storage-used",
+                data.storage.used
+            );
+
+
+            setText(
+                "storage-available",
+                data.storage.available
+            );
+
+
+            const storagePercent =
+                extractPercent(
+                    data.storage.percent
+                );
+
+
+            updateBar(
+                "storage-bar",
+                storagePercent
+            );
+
+        }
+
+
+        /* ================================
+           UPTIME
+        ================================= */
+
+        setText(
+            "uptime",
+            data.uptime
+        );
+
+
+        console.log(
+            "🥶 Freezer stats updated"
+        );
+
+
+    }
+    catch (error) {
+
+        console.log(
+            "Live stats error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   COMING SOON
+===================================================== */
+
+function showComingSoon(feature) {
+
+    alert(
+        "🥶 " +
+        feature +
+        "\n\nThis control will be connected to Freezer-MD in the next phase."
+    );
+
+}
+
+
+/* =====================================================
+   INITIAL UPDATE
+===================================================== */
+
+updateStats();
+
+
+/* =====================================================
+   LIVE UPDATE
+===================================================== */
+
+setInterval(
+    updateStats,
+    2000
+);
+
+
+</script>
+
+
+</body>
+
+</html>
