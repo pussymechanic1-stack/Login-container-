@@ -1,14 +1,32 @@
 from flask import Flask, render_template, request, redirect, session
+from dotenv import load_dotenv
 import sqlite3
 import hashlib
 import subprocess
 import re
+import os
+
+# =========================
+# ENVIRONMENT
+# =========================
+
+load_dotenv()
 
 app = Flask(__name__)
 
-app.secret_key = "freezer-md-change-this-secret"
+app.secret_key = os.getenv(
+    "SECRET_KEY",
+    "development-only-secret"
+)
 
-DB = "users.db"
+DB = os.getenv(
+    "DATABASE_URL",
+    "sqlite:///users.db"
+)
+
+# Convert SQLite URL to a normal filesystem path
+if DB.startswith("sqlite:///"):
+    DB = DB.replace("sqlite:///", "", 1)
 
 
 # =========================
@@ -332,8 +350,13 @@ def logout():
 
 if __name__ == "__main__":
 
+    debug_mode = os.getenv(
+        "FLASK_DEBUG",
+        "0"
+    ).lower() in ("1", "true", "yes")
+
     app.run(
         host="0.0.0.0",
         port=5000,
-        debug=True
+        debug=debug_mode
     )
